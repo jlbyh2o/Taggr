@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title%}{{item.item_data.name}}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card mb-4 rounded-3 shadow-sm border-secondary">
+        <div class="card-header py-3 text-light bg-secondary border-secondary">
+        <h4 class="my-0 fw-normal">{{item.item_data.name}}</h4>
+        </div>
+        <div class="card-body">
+            <div class="row row-cols-3 row-cols-md-3 mb-3">
+                <div class="col">
+                    {% if 'ecom_image_uris' in item.item_data %}
+                    <img class="img-thumbnail img-fluid" style="max-width:320px;" src="{{ item.item_data.ecom_image_uris[0] }}?width=320">
+                    {% else %}
+                    <img class="img-thumbnail img-fluid" style="max-width:320px;" src="{{ url_for('static', filename='icon-no-image.svg') }}">
+                    {% endif %}
+                </div>
+                <div  class="col">
+                    <h1 class="card-title pricing-card-title">{{ "$%.2f"|format(variation.item_variation_data.price_money.amount / 100)}}</h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li class="h4"><strong>Current Inventory:</strong> {{ inventory }}</li>
+                        <li><strong>SKU:</strong> {{ variation.item_variation_data.sku }}</li>
+                        <li><strong>UPC:</strong> {{ variation.item_variation_data.upc }}</li>
+                    </ul>
+                </div>
+                <div class="col text-center">
+                    <img class="img-thumbnail img-fluid mb-3" width="300" height="150" src="{{ url_for('main.get_image', name=item.item_data.name, price=variation.item_variation_data.price_money.amount, sku=variation.item_variation_data.sku)}}">
+                    <form method="get" action="/print" class="w-100">
+                    <input type="hidden" name="name" id="name" value="{{item.item_data.name}}">
+                    <input type="hidden" name="price" id="price" value="{{variation.item_variation_data.price_money.amount}}">
+                    <input type="hidden" name="sku" id="sku" value="{{variation.item_variation_data.sku}}">
+                    <input type="hidden" name="item_id" id="sku" value="{{variation.id}}">
+                        <div class="input-group w-100 mb-3">
+                            <span class="input-group-text" id="addon1">Print</span>
+                            <input class="form-control" type="number" min=1 max=99 value="{{ inventory }}"" id="qty" name="qty">
+                            <button type="submit" class="btn btn-lg btn-primary">Tags</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

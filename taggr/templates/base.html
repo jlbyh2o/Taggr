@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <title>{% block title %}{% endblock %} - Taggr</title>
+  </head>
+  <body>
+    <header class="d-flex flex-wrap justify-content-center p-3 mb-4 border-bottom bg-dark">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-light text-decoration-none">
+            <span class="fs-3">Taggr</span>
+        </a>
+        <div class="nav">
+            <form class="col-6 col-lg-auto mb-3 mb-lg-0 me-lg-3 text-end" action="/" method="get">
+                <div class="input-group input-group-lg">
+                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search" id="s" name="s" autofocus autocomplete="off">
+                    <button type="submit" class="btn btn-primary btn-md">Search</button>
+                </div>
+            </form>
+            <div class="dropdown text-end">
+                <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ url_for('static', filename='user.png') }}" alt="user" width="48" height="48" class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu" style="font-size: 200%" aria-labelledby="dropdownUser">
+                    <li><span class="dropdown-item-text"><strong>{{g.user['username']}}</strong></span></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="{{ url_for('auth.settings') }}" class="dropdown-item">Settings</a></li>
+                    <li><a href="{{ url_for('auth.logout') }}" class="dropdown-item">Log Out</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </header>
+    <main class="p-3">
+      {% for message in get_flashed_messages() %}
+        <div class="alert alert-primary col-lg-6 mx-auto alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+      {% block content %}{% endblock %}
+    </main>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

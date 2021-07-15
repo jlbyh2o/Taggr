@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title%}Item Search{% endblock %}
+
+{% block content %}
+  <div class="px-4 py-5 text-center">
+    <h1 class="display-5 fw-bold mb-5">Item Search</h1>
+    <div class="col-lg-6 mx-auto">
+      <form method="get" autocomplete="off">
+        <div class="input-group input-group-lg mb-3">
+          <input class="form-control" type="text" name="s" id="s" placeholder="Search..." autofocus autocomplete="off" />
+          <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Search</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

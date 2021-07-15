@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title%}{{ g.user['username'] }} settings{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card mb-4 rounded-3 shadow-sm border-secondary">
+        <div class="card-header py-3 text-light bg-secondary border-secondary">
+        <h4 class="my-0 fw-normal">Settings</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" autocomplete="off">
+                <div class="mb-3">
+                      <label for="squareApiKey" class="form-label">Square API Key</label>
+                      <input type="text" class="form-control" id="squareApiKey" name="squareApiKey" aria-describedby="squareHelp"  value="{{ g.user['square_api_key'] }}">
+                      <div id="squareHelp" class="form-text">Square API Key for Production.</div>
+                  </div>
+                  <div class="mb-3">
+                      <label for="dymoPrinterName" class="form-label">Dymo Printer Name</label>
+                      <input type="text" class="form-control" id="dymoPrinterName" name="dymoPrinterName" aria-describedby="dymoHelp"  value="{{ g.user['dymo_printer_name'] }}">
+                      <div id="dymoHelp" class="form-text">Name of Dymo Printer Exactly as it Appears in System Settings.</div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
