@@ -1,5 +1,7 @@
 import functools
 
+import subprocess
+
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -81,7 +83,11 @@ def settings():
         db.commit()
         return redirect(url_for('auth.settings'))
 
-    return render_template('auth/settings.html')
+    printers = subprocess.check_output(['lpstat', '-e']).decode('utf-8')
+    printers = printers.split('\n')
+    printers = list(filter(None, printers))
+
+    return render_template('auth/settings.html', printers=printers)
 
 
 @bp.before_app_request
