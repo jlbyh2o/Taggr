@@ -29,7 +29,7 @@
                     <td class="text-start">{{ variation.item_variation_data.name }}</td>
                     <td>{{ variation.item_variation_data.sku }}
                     <td class="text-end">{{ "$%.2f"|format(variation.item_variation_data.price_money.amount / 100)}}</td>
-                    <td class="text-end">
+                    <td>
                         {% if variation.item_variation_data.sku|length %}
                         <a href="{{ url_for('main.get_item', item_id=variation.id) }}" class="btn btn-primary btn-lg">Select</a>
                         {% endif %}

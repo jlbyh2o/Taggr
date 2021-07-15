@@ -15,12 +15,15 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
+    db = get_db()
+    if db.execute('SELECT id FROM user WHERE 1').fetchone() is not None:
+        flash('Registration Denied. Only One User Account Allowed.')
+        return redirect(url_for('auth.login'))
     form = RegisterForm()
     if request.method == 'POST':
         if form.validate_on_submit():
             username = request.form['username']
             password = request.form['password']
-            db = get_db()
             error = None
 
             if not username:
