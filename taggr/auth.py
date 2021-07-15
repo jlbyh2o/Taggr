@@ -72,20 +72,33 @@ def login():
 def settings():
     if g.user is None:
         return redirect(url_for('auth.login'))
+
+    # Get Printers from System
+    printers = subprocess.check_output(['lpstat', '-e']).decode('utf-8')
+    printers = printers.split('\n')
+    if len(printers) == 0:
+        printers = ['No Printers Found']
+    elif len(printers) == 1:
+        if printers[0] is None:
+            printers = ['No Printers Found']
+    if len(printers) > 1:
+        printers = list(filter(None, printers))
+
     if request.method == 'POST':
         square_api_key = request.form['squareApiKey']
         dymo_printer_name = request.form['dymoPrinterName']
-        db = get_db()
-        db.execute(
-            'UPDATE user SET square_api_key = ?, dymo_printer_name = ? WHERE id = ?',
-            (square_api_key, dymo_printer_name, g.user['id'],)
-        )
-        db.commit()
+        if dymo_printer_name not in printers:
+            error = "Printer name is invalid. Printer Could Not Be Set."
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                'UPDATE user SET square_api_key = ?, dymo_printer_name = ? WHERE id = ?',
+                (square_api_key, dymo_printer_name, g.user['id'],)
+            )
+            db.commit()
+            flash("Settings Updated Successfully.")
         return redirect(url_for('auth.settings'))
-
-    printers = subprocess.check_output(['lpstat', '-e']).decode('utf-8')
-    printers = printers.split('\n')
-    printers = list(filter(None, printers))
 
     return render_template('auth/settings.html', printers=printers)
 

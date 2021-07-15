@@ -22,7 +22,7 @@
                           <option value="{{ printer }}"{% if g.user['dymo_printer_name'] == printer %} selected{% endif %}>{{ printer }}</option>
                           {% endfor %}
                       </select>
-                      <div id="dymoHelp" class="form-text">Name of Dymo Printer Exactly as it Appears in System Settings.</div>
+                      <div id="dymoHelp" class="form-text">Select the Dymo printer.</div>
                   </div>
                   <button type="submit" class="btn btn-primary">Update</button>
             </form>

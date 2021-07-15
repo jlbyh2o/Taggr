@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='taggr',
-    version='0.1.8',
+    version='0.1.9',
     description='Tag creator for Square.',
     author='Jeremy Bywater',
     author_email='jeremy@bywater.me',
