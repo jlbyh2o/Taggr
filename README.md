@@ -24,11 +24,6 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### Install Wheel
-```console
-pip install wheel
-```
-
 ### Install Taggr
 ```console
 pip install taggr-<version>-py3-none-any.whl
@@ -36,7 +31,7 @@ pip install taggr-<version>-py3-none-any.whl
 
 ### Initialize the Database
 ```console
-export FLASK_APP=taggr
+export FLASK_APP=taggr.app
 flask init-db
 ```
 
@@ -59,9 +54,11 @@ Paste the following into /etc/supervisor/conf.d/taggr.conf
 ```roboconf
 [program:taggr]
 directory=/opt/Taggr
-command=/opt/Taggr/venv/bin/gunicorn -w 4 -b localhost:8000 "taggr:create_app()"
+command=/opt/Taggr/venv/bin/gunicorn -w 4 -b localhost:8000 "taggr.app"
 autostart=true
 autorestart=true
+stopasgroup=true
+killasgroup=true
 stderr_logfile=/var/log/taggr.err.log
 stdout_logfile=/var/log/taggr.out.log
 ```
@@ -101,7 +98,7 @@ sudo nginx -t
 sudo service nginx restart
 ```
 ## First-time Setup
-1. Register your account by opening the Taggr website at http://taggr.local/auth/register (be sure to replace tagger.local with you own server name or IP address.)
+1. Register your account by opening the Taggr website at http://taggr.local/auth/register (be sure to replace taggr.local with you own server name or IP address.)
 2. Log in with your new credentials.
 3. Open Settings by clicking top right dropdown.
 4. Set your Square API Key and Dymo Printer.
