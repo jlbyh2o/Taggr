@@ -1,6 +1,5 @@
-include taggr/schema.sql
+graft migrations
 graft taggr/glabel
 graft taggr/static
 graft taggr/templates
-graft migrations
 global-exclude *.pyc

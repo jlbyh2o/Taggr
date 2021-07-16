@@ -11,28 +11,32 @@ Instructions to install on Ubuntu Server 20.04 with Nginx and Supervisor.
 sudo apt install glabels nginx supervisor python3.8-venv cups
 ```
 
-### Create Directory and Virtual Environment
+### Create Directory
 ```console
 sudo mkdir /opt/Taggr
 sudo chmod -R a+rw /opt/Taggr
 cd /opt/Taggr
-python3 -m venv venv
-```
-
-### Activate the new Python Virtual Environment
-```console
-source venv/bin/activate
 ```
 
 ### Install Taggr
 ```console
-pip install taggr-<version>-py3-none-any.whl
+git clone https://github.com/jlbyh2o/Taggr.git .
+```
+
+### Create and Activate a new Python Virtual Environment
+```console
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### Install Flask and Dependencies
+```console
+pip install -r requirements.txt
 ```
 
 ### Initialize the Database
 ```console
-export FLASK_APP=taggr.app
-flask db init
+export FLASK_APP=taggr
 flask db upgrade
 ```
 
