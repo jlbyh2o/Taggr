@@ -13,7 +13,7 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
-    if User.query.all() is not None:
+    if User.query.count():
         flash('Registration Denied. Only One User Account Allowed.')
         return redirect(url_for('auth.login'))
     if current_user.is_authenticated:

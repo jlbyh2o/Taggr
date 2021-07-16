@@ -42,7 +42,7 @@ flask db upgrade
 
 ### Configure the Secret Key
 ```console
-python -c 'import os; print("SECRET_KEY = " + str(os.urandom(16)))' > venv/var/taggr-instance/config.py
+python -c 'import os; print("SECRET_KEY = " + str(os.urandom(16)))' > instance/config.py
 ```
 
 ### Install Gunicorn
@@ -59,7 +59,7 @@ Paste the following into /etc/supervisor/conf.d/taggr.conf
 ```roboconf
 [program:taggr]
 directory=/opt/Taggr
-command=/opt/Taggr/venv/bin/gunicorn -w 4 -b localhost:8000 "taggr.app"
+command=/opt/Taggr/venv/bin/gunicorn -w 4 -b localhost:8000 "taggr:app"
 autostart=true
 autorestart=true
 stopasgroup=true
