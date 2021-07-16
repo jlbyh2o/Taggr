@@ -32,7 +32,8 @@ pip install taggr-<version>-py3-none-any.whl
 ### Initialize the Database
 ```console
 export FLASK_APP=taggr.app
-flask init-db
+flask db init
+flask db upgrade
 ```
 
 ### Configure the Secret Key
