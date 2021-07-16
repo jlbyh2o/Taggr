@@ -12,6 +12,10 @@ setup(
     zip_safe=False,
     install_requires=[
         'flask',
+        'flask-wtf',
+        'flask-sqlalchemy',
+        'flask-migrate',
+        'flask-login',
         'squareup',
         'treepoem',
         'pillow'

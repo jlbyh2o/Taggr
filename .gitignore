@@ -16,3 +16,5 @@ build/
 .vscode/
 .pylintrc
 .idea/
+
+migrations/

@@ -6,12 +6,12 @@ import tempfile
 import treepoem
 from PIL import Image, ImageDraw, ImageFont
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for, send_file
+    Blueprint, flash, redirect, render_template, request, url_for, send_file
 )
 from flask import current_app as app
 from square.client import Client
 
-from taggr.auth import login_required
+from flask_login import login_required, current_user
 
 bp = Blueprint('main', __name__)
 
@@ -22,7 +22,7 @@ def index():
     if 's' in request.args:
         s = request.args.get('s')
         client = Client(
-            access_token=g.user['square_api_key'],
+            access_token=current_user.square_api_key,
             environment='production', )
         catalog_api = client.catalog
         result = catalog_api.search_catalog_items(
@@ -59,7 +59,7 @@ def index():
 @login_required
 def get_item(item_id):
     client = Client(
-        access_token=g.user['square_api_key'],
+        access_token=current_user.square_api_key,
         environment='production', )
     catalog_api = client.catalog
     inventory_api = client.inventory
@@ -159,7 +159,7 @@ def print_tag():
     # Check that it ran ok
     if returned_value == 0:
         # Print the output
-        cmd = "lp -d " + str(g.user['dymo_printer_name']) + " " + ps_file_path
+        cmd = "lp -d " + str(current_user.dymo_printer_name) + " " + ps_file_path
         returned_value = os.system(cmd)
         # Check that it printed ok
         if returned_value == 0:

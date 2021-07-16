@@ -32,7 +32,7 @@
                     <img src="{{ url_for('static', filename='user.png') }}" alt="user" width="48" height="48" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu" style="font-size: 200%" aria-labelledby="dropdownUser">
-                    <li><span class="dropdown-item-text"><strong>{{g.user['username']}}</strong></span></li>
+                    <li><span class="dropdown-item-text"><strong>{{current_user['username']}}</strong></span></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a href="{{ url_for('auth.settings') }}" class="dropdown-item">Settings</a></li>
                     <li><a href="{{ url_for('auth.logout') }}" class="dropdown-item">Log Out</a></li>

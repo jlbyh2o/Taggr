@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title%}{{ g.user['username'] }} settings{% endblock %}
+{% block title%}{{ current_user['username'] }} Settings{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -10,16 +10,17 @@
         </div>
         <div class="card-body">
             <form method="post" autocomplete="off">
+                {{ form.csrf_token }}
                 <div class="mb-3">
-                      <label for="squareApiKey" class="form-label">Square API Key</label>
-                      <input type="text" class="form-control form-control-lg" id="squareApiKey" name="squareApiKey" aria-describedby="squareHelp"  value="{{ g.user['square_api_key'] }}">
+                      <label for="square_api_key" class="form-label">Square API Key</label>
+                      <input type="text" class="form-control form-control-lg" id="square_api_key" name="square_api_key" aria-describedby="squareHelp"  value="{{ current_user.square_api_key }}">
                       <div id="squareHelp" class="form-text">Square API Key for Production.</div>
                   </div>
                   <div class="mb-3">
-                      <label for="dymoPrinterName" class="form-label">Dymo Printer Name</label>
-                      <select class="form-select form-select-lg" aria-describedby="dymoHelp" id="dymoPrinterName" name="dymoPrinterName">
+                      <label for="dymo_printer_name" class="form-label">Dymo Printer Name</label>
+                      <select class="form-select form-select-lg" aria-describedby="dymoHelp" id="dymo_printer_name" name="dymo_printer_name">
                           {% for printer in printers %}
-                          <option value="{{ printer }}"{% if g.user['dymo_printer_name'] == printer %} selected{% endif %}>{{ printer }}</option>
+                          <option value="{{ printer }}"{% if current_user.dymo_printer_name == printer %} selected{% endif %}>{{ printer }}</option>
                           {% endfor %}
                       </select>
                       <div id="dymoHelp" class="form-text">Select the Dymo printer.</div>
