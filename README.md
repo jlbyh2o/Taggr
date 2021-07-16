@@ -110,5 +110,15 @@ sudo service nginx restart
 
  You are now ready to use Taggr.
 
+## Updating
+```console
+cd /opt/Taggr
+source venv/bin/activate
+sudo supervisorctl stop taggr
+git pull
+flask db upgrade
+sudo supervisorctl start taggr
+```
+
 ## License
 [Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0)
